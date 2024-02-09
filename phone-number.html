@@ -30,13 +30,13 @@
 
         .line1 {
             position: absolute;
-            top: 40%;
+            top: 35%;
             left: 50%;
             width: 5px;
-            height: 100px;
+            height: 200px;
             background-image: linear-gradient(to bottom, red, blue);
             z-index: 1;
-            animation: rotator 3s infinite;
+            animation: rotator 5s infinite;
         }
 
         .circle2 {
@@ -109,9 +109,9 @@
         let b = values[1];
         let angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
 
-        console.log(angle);
-
-        // select a number 
+        // select a number based on rotation angle (0-9)
+        let number = Math.floor((angle + 60) / 12);
+        console.log(number);
     });
 
 </script>
