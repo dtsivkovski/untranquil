@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <title>untranquil.</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        @keyframes rotator {
+            0% {
+                transform: rotateZ(60deg);
+            }
+            50% {
+                transform: rotateZ(-60deg);
+            }
+            100% {
+                transform: rotateZ(60deg);
+            }
+        }
+
+        .line1 {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 5px;
+            height: 100px;
+            background-image: linear-gradient(to bottom, red, blue);
+            z-index: 1;
+            animation: rotator 3s infinite;
+        }
+
+        .circle2 {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            border-radius: 50%;
+            background-image: linear-gradient(to bottom, white, white);
+        }
+
+        /* Disable scrolling for the body*/
+        body {
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, black, black);
+            transition: background-image 2s ease-in-out;
+        }
+
+        .fadein-header {
+            transition: opacity 2s ease-in-out;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            cursor: default;
+        }
+
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out, opacity 3s ease-in-out;
+            font-family: 'Oswald', sans-serif;
+            opacity: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="line1" id="line1"></div>
+</body>
+<script>
+    
+    let mainLine = document.querySelector("#line1");
+    let body = document.querySelector("body");
+
+    // generate a box every 10 degrees in the 120 degree radius above the line
+    let j = 0;
+    for (let i = -54; i <= 62; i += 12) {
+        let box = document.createElement("div");
+        box.style.position = "absolute";
+        box.style.width = "30px";
+        box.style.height = "20px";
+        box.style.backgroundColor = "white";
+        box.style.top = "calc(50%)";
+        box.style.left = "calc(50%)";
+        box.style.transform = `rotate(${i}deg) translate(0, -200px)`;
+        box.innerHTML = j++;
+        box.style.textAlign = "center";
+        body.appendChild(box);
+    }
+
+    body.addEventListener("click", () => {
+        // alert the user of the current rotation value of the line
+        let style = window.getComputedStyle(mainLine);
+        let transform = style.transform;
+
+        let values = transform.split('(')[1].split(')')[0].split(',');
+        let a = values[0];
+        let b = values[1];
+        let angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+
+        console.log(angle);
+
+        // select a number 
+    });
+
+</script>
+</html>
