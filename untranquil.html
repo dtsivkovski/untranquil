@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap" rel="stylesheet">
+    <title>untranquil.</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .circle {
+            position: absolute;
+            top: 49%;
+            left: 49%;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-image: linear-gradient(to bottom, red, blue);
+            transition: transform 1s ease-in-out, opacity 2s ease-in-out;
+            z-index: 1;
+        }
+
+        .circle:hover {
+            transform: scale(100);
+        }
+
+        .circle2 {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            border-radius: 50%;
+            background-image: linear-gradient(to bottom, white, white);
+        }
+
+        /* Disable scrolling for the body*/
+        body {
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, black, black);
+            transition: background-image 2s ease-in-out;
+        }
+
+        .fadein-header {
+            transition: opacity 2s ease-in-out;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            cursor: default;
+        }
+
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out, opacity 2s ease-in-out;
+            font-family: 'Oswald', sans-serif;
+            opacity: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="circle" id="circle1"></div>
+    <h1 class="fadein-header" id="header" style="display: none;">untranquil.</h1>
+    <br>
+    <button class="btn" id="lightsOut" style="display: none; opacity: 0" onClick="putTheLightsOut()">Lights Out</div>
+</body>
+<script>
+
+    let body = document.querySelector('body');
+    let header = document.querySelector('#header');
+    let lightsOut = document.querySelector('#lightsOut');
+
+    
+
+    let mouseMoveHandler = (e) => {
+        // get the mouse position
+        let x = e.clientX;
+        let y = e.clientY;
+
+        let circle2 = document.querySelector('#circle2');
+
+        // circle will follow the mouse pointer and also shrink the further away the mouse pointer is from the center
+        let xCenter = window.innerWidth / 2;
+        let yCenter = window.innerHeight / 2;
+
+        let xDiff = x - xCenter;
+        let yDiff = y - yCenter;
+
+        let distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+        let maxDistance = Math.sqrt(xCenter * xCenter + yCenter * yCenter);
+
+        let scale = 0 + distance / maxDistance * 8;
+        circle2.style.transform = 'scale(' + scale + ')';
+
+        // circle location based on x and y position but also its current width and height to keep it centered
+        circle2.style.left = x - circle2.offsetWidth / 2 + 'px';
+        circle2.style.top = y - circle2.offsetHeight / 2 + 'px';
+
+        // if mouse is all the way to the left or the right, change the body background to white and call goAgain1()
+        if (x < 20 || x > window.innerWidth - 20) {
+            body.style.backgroundImage = 'linear-gradient(to bottom, white, white)';
+            goAgain1();
+        }
+    }
+    // scale up the circle to fill the screen when first hovered over
+    // make the circle fade out  when it's done scaling and change the body background image to the same gradient
+    // fade the circle out and change the body background image to the same gradient
+    document.querySelector('#circle1').addEventListener('transitionend', () => {
+
+
+        body.style.backgroundImage = 'linear-gradient(to bottom, red, blue)';
+        document.querySelector('#circle1').style.opacity = 0;
+
+        // fade in the header
+        header.style.display = 'block';
+        header.style.opacity = 1;
+
+        document.querySelector('#circle1').removeEventListener('transitionend', () => {});
+
+        // wait 5 seconds
+        setTimeout(() => {
+            document.querySelector("#circle1").style.display = 'none';
+            // fade out the header, change the body background image to black
+            header.style.opacity = 0;
+
+            // wait 2 seconds
+            setTimeout(() => {
+                header.style.display = 'none';
+
+                // create a circle that will follow the mouse pointer
+                let circle2 = document.createElement('div');
+                circle2.id = 'circle2';
+                circle2.classList.add('circle2');
+                body.appendChild(circle2);
+
+                // set circle to middle of screen 
+                circle2.style.transform = 'scale(0.001)';
+                circle2.style.left = window.innerWidth / 2 - circle2.offsetWidth / 2 + 'px';
+                circle2.style.top = window.innerHeight / 2 - circle2.offsetHeight / 2 + 'px';
+
+                // set circle scale by default
+                circle2.style.transform = 'scale(0.001)';
+
+                // start the function to track the mouse pointer
+                body.addEventListener('mousemove', mouseMoveHandler);
+            }, 2000);
+
+        }, 2000);
+
+
+    });
+
+    function goAgain1() {
+        // remove the mouse move event listener
+        body.removeEventListener('mousemove', mouseMoveHandler);
+        document.querySelector('#circle2').style.display = 'none';
+
+        lightsOut.style.display = 'block';
+        lightsOut.style.opacity = 1;
+    }
+
+    function putTheLightsOut() {
+        body.style.backgroundImage = 'linear-gradient(to bottom, black, black)';
+        lightsOut.style.opacity = 0;
+
+        // delay display none by 2 seconds
+        setTimeout(() => {
+            lightsOut.style.display = 'none';
+            window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }, 2000);
+    }
+
+    
+    
+</script>
+</html>
