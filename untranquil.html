@@ -20,21 +20,39 @@
             position: absolute;
             top: 49%;
             left: 49%;
-            width: 16px;
-            height: 16px;
+            width: 1vw;
+            height: 1vw;
             border-radius: 50%;
             background-image: linear-gradient(to bottom, red, blue);
-            transition: transform 1.5s ease-in-out, opacity 2s ease-in-out;
-            z-index: 1;
         }
 
         .circle:hover {
-            transform: scale(100);
+            transform: scale(125);
+        }
+
+        @keyframes circleScale {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            75% {
+                transform: scale(125);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
         }
 
         .circle2 {
-            width: 400px;
-            height: 400px;
+            width: 2vw;
+            height: 2vw;
             position: absolute;
             border-radius: 50%;
             background-image: linear-gradient(to bottom, white, white);
@@ -110,7 +128,7 @@
         let distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
         let maxDistance = Math.sqrt(xCenter * xCenter + yCenter * yCenter);
 
-        let scale = 0 + distance / maxDistance * 8;
+        let scale = 0 + distance / maxDistance * 100;
         circle2.style.transform = 'scale(' + scale + ')';
 
         // circle location based on x and y position but also its current width and height to keep it centered
@@ -126,11 +144,21 @@
     // scale up the circle to fill the screen when first hovered over
     // make the circle fade out  when it's done scaling and change the body background image to the same gradient
     // fade the circle out and change the body background image to the same gradient
-    document.querySelector('#circle1').addEventListener('transitionend', () => {
+    document.querySelector('#circle1').addEventListener('mouseover', () => {
+        document.querySelector('#circle1').style.animation = 'circleScale 2s ease-in-out';
+        setTimeout(() => {
+            circleEnd();
+        }, 1500);
+        setTimeout(() => {
+            document.querySelector('#circle1').style.opacity = 0;
+        }, 2001);
+    });
+    
+
+    function circleEnd() {
 
 
         body.style.backgroundImage = 'linear-gradient(to bottom, red, blue)';
-        document.querySelector('#circle1').style.opacity = 0;
 
         // fade in the header
         header.style.display = 'block';
@@ -169,7 +197,7 @@
         }, 2000);
 
 
-    });
+    }
 
     function goAgain1() {
         // remove the mouse move event listener
