@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <title>physics box</title>
+    <style>
+        .main-circle {
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-image: linear-gradient(to bottom, red, blue);
+            transition: transform 1.5s ease-in-out, opacity 2s ease-in-out;
+            z-index: 1;
+            text-align: center;
+            justify-content: center;
+        }
+        body {
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, black, black);
+            transition: background-image 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-circle"></div>
+</body>
+<script>
+    // detect when someone clicks on the circle
+    document.querySelector('.main-circle').addEventListener('click', circleOnClick);
+
+    function circleOnClick() {
+        // toggle circle "grabbed" class
+        document.querySelector('.main-circle').classList.toggle('grabbed');
+        // if has grabbed, then add event listener for mousemove
+        if (document.querySelector('.main-circle').classList.contains('grabbed')) {
+            document.addEventListener('mousemove', moveCircle);
+            document.querySelector('.main-circle').style.transition = 'none';
+        } else {
+            document.removeEventListener('mousemove', moveCircle);
+            fallCircle();
+        }
+    }
+
+    // while circle is grabbed, move it to the mouse position
+
+    function moveCircle(e) {
+        // offset the circle so the mouse is in the center
+        // get size of circle 
+        let circleSize = document.querySelector('.main-circle').offsetWidth;
+        // get mouse position
+        let x = e.clientX - circleSize / 2;
+        let y = e.clientY - circleSize / 2;
+        document.querySelector('.main-circle').style.left = x + 'px';
+        document.querySelector('.main-circle').style.top = y + 'px';
+    }
+
+    // function to make circle fall to the bottom of the screen when not grabbed
+    function fallCircle() {
+        // get the height of the window
+        // slowly move the circle to the bottom of the screen
+        // create an animation to make the circle fall over time to the bottom
+        // get the height of the window
+        let windowHeight = window.innerHeight;
+        // get the circle and its width
+        let circle = document.querySelector('.main-circle');
+        let circleWidth = circle.offsetWidth;
+        // get the current position of the circle
+        let currentY = circle.offsetTop;
+        // get the distance to the bottom of the screen
+        let distanceToBottom = windowHeight - currentY;
+        // create an animation to make the circle fall over time to the bottom
+        circle.style.transition = 'top ' + distanceToBottom / 980 + 's ease-in';
+        circle.style.top = windowHeight - circleWidth + 'px';
+    }
+</script>
