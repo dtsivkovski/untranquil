@@ -48,7 +48,7 @@
             document.querySelector('.main-circle').style.transition = 'none';
         } else {
             document.removeEventListener('mousemove', moveCircle);
-            fallCircle();
+            fallCircle(document.querySelector('.main-circle'));
         }
     }
 
@@ -66,14 +66,13 @@
     }
 
     // function to make circle fall to the bottom of the screen when not grabbed
-    function fallCircle() {
+    function fallCircle(circle) {
         // get the height of the window
         // slowly move the circle to the bottom of the screen
         // create an animation to make the circle fall over time to the bottom
         // get the height of the window
         let windowHeight = window.innerHeight;
         // get the circle and its width
-        let circle = document.querySelector('.main-circle');
         let circleWidth = circle.offsetWidth;
         // get the current position of the circle
         let currentY = circle.offsetTop;
