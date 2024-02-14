@@ -19,6 +19,8 @@
             text-align: center;
             justify-content: center;
             cursor: grab;
+            top: calc(50% - 1rem);
+            left: calc(50% - 1rem);
         }
         .grabbed {
             cursor: grabbing;
@@ -78,8 +80,8 @@
         // get the distance to the bottom of the screen
         let distanceToBottom = windowHeight - currentY;
         
-        let timeToFall = Math.sqrt(2 * distanceToBottom / 150 / 9.8);
-        let timeToFall2 = Math.sqrt(distanceToBottom / 150 / 9.8);
+        let timeToFall = Math.sqrt(2 * distanceToBottom / 200 / 9.8);
+        let timeToFall2 = Math.sqrt(distanceToBottom / 200 / 9.8);
 
         // create an animation to make the circle fall over time to the bottom
         circle.style.transition = 'top ' + timeToFall + 's ease-in';
@@ -102,10 +104,10 @@
 
         let currentY = circle.offsetTop;
 
-        let timeToFall = Math.sqrt(2 * distanceToBottom / 150 / 9.8);
-        let timeToFall2 = Math.sqrt(distanceToBottom / 150 / 9.8);
+        let timeToFall = Math.sqrt(2 * distanceToBottom / 200 / 9.8);
+        let timeToFall2 = Math.sqrt(distanceToBottom / 200 / 9.8);
 
-        if (distanceToBottom < circleWidth / 2) {
+        if (distanceToBottom < circleWidth / 8) {
             circle.style.transition = 'top' + timeToFall2 + 'ease-out';
             circle.style.top = windowHeight - circleWidth + 'px';
             return;
