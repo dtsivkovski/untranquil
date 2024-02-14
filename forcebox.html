@@ -80,8 +80,9 @@
         // get the distance to the bottom of the screen
         let distanceToBottom = windowHeight - currentY;
         
+        // time to fall on initial fall and for the bounce
         let timeToFall = Math.sqrt(2 * distanceToBottom / 200 / 9.8);
-        let timeToFall2 = Math.sqrt(distanceToBottom / 200 / 9.8);
+        let timeToBounce = Math.sqrt(distanceToBottom / 200 / 9.8);
 
         // create an animation to make the circle fall over time to the bottom
         circle.style.transition = 'top ' + timeToFall + 's ease-in';
@@ -89,26 +90,27 @@
 
         // when reaching the bottom of the screen, change transition value to ease-out
         setTimeout(() => {
-            circle.style.transition = 'top ' + timeToFall2 + 's ease-out';
+            circle.style.transition = 'top ' + timeToBounce + 's ease-out';
             circle.style.top = windowHeight - circleWidth - (distanceToBottom / 2) + 'px';
             // call the bounce function
             setTimeout(() => {
-                bounce(distanceToBottom / 2, circle);
-            }, timeToFall2 * 1000);
+                fallThenBounce(distanceToBottom / 2, circle);
+            }, timeToBounce * 1000);
         }, timeToFall * 1000);
     }
 
-    function bounce(distanceToBottom, circle) {
+    function fallThenBounce(distanceToBottom, circle) {
+        // get height, find time to fall for the fall and the bounce
         let windowHeight = window.innerHeight;
         let circleWidth = circle.offsetWidth;
 
         let currentY = circle.offsetTop;
 
         let timeToFall = Math.sqrt(2 * distanceToBottom / 200 / 9.8);
-        let timeToFall2 = Math.sqrt(distanceToBottom / 200 / 9.8);
+        let timeToBounce = Math.sqrt(distanceToBottom / 200 / 9.8);
 
         if (distanceToBottom < circleWidth / 8) {
-            circle.style.transition = 'top' + timeToFall2 + 'ease-out';
+            circle.style.transition = 'top' + timeToBounce + 'ease-out';
             circle.style.top = windowHeight - circleWidth + 'px';
             return;
         }
@@ -118,11 +120,11 @@
 
 
         setTimeout(() => {
-            circle.style.transition = 'top ' + timeToFall2 + 's ease-out';
+            circle.style.transition = 'top ' + timeToBounce + 's ease-out';
             circle.style.top = windowHeight - circleWidth - (distanceToBottom / 2) + 'px';
             setTimeout(() => {
-                bounce(distanceToBottom / 2, circle);
-            }, timeToFall2 * 1000);
+                fallThenBounce(distanceToBottom / 2, circle);
+            }, timeToBounce * 1000);
         }, timeToFall * 1000);
 
 
