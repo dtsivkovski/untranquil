@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <title>balloon</title>
+    <style>
+        .main-circle {
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-image: linear-gradient(to bottom, red, blue);
+            transition: transform 1.5s ease-in-out, opacity 2s ease-in-out;
+            z-index: 1;
+            text-align: center;
+            justify-content: center;
+            cursor: default;
+            top: calc(50% - 1rem);
+            left: calc(50% - 1rem);
+        }
+        body {
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, black, black);
+            transition: background-image 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-circle"></div>
+</body>
+<script>
+    // detect whether space key is down or not
+    document.addEventListener('keydown', function(e) {
+        if (e.code === 'Space') {
+            console.log('space key down');
+        }
+    });
+
+    function balloon() {
+        while(true) {
+            // get size of circle
+            let circleSize = document.querySelector('.main-circle').offsetWidth;
+            // detect space key down or not
+        }
+    }
+
+    balloon();
+</script>

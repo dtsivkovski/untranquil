@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <title>circle breaking</title>
+    <style>
+        .main-circle {
+            position: absolute;
+            width: 58rem;
+            height: 58rem;
+            border-radius: 50%;
+            background-size: 150rem;
+            background-position: center;
+            z-index: 1;
+            text-align: center;
+            justify-content: center;
+            cursor: default;
+            top: calc(50% - 29rem);
+            left: calc(50% - 29rem);
+            filter: brightness(0.85);
+        }
+        .inner-circle {
+            position: absolute;
+            width: 32rem;
+            height: 32rem;
+            border-radius: 50%;
+            background-size: 150rem;
+            background-position: center;
+            z-index: 1;
+            text-align: center;
+            justify-content: center;
+            cursor: default;
+            top: calc(50% - 16rem);
+            left: calc(50% - 16rem);
+        }
+        .outer-circle {
+            position: absolute;
+            width: 100rem;
+            height: 100rem;
+            border-radius: 50%;
+            background-size: 150rem;
+            background-position: center;
+            z-index: 1;
+            text-align: center;
+            justify-content: center;
+            cursor: default;
+            top: calc(50% - 50rem);
+            left: calc(50% - 50rem);
+        }
+        body {
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, black, black);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0px) brightness(0.85);
+                background-size: 150rem;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                transform: rotate(180) scale(1.2);
+                filter: blur(10px) brightness(0.5);
+                background-size: 190rem;
+            }
+            75% {
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+                filter: blur(0px) brightness(0.85);
+                opacity: 0;
+                background-size: 150rem;
+            }
+        }
+        @keyframes rotateI{
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                background-size: 150rem;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                transform: rotate(-180) scale(1.4);
+                background-size: 200rem;
+            }
+            75% {
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(-360deg) scale(1);
+                opacity: 0;
+                background-size: 150rem;
+            }
+        }
+        @keyframes rotateO{
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+                background-size: 150rem;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                transform: rotate(-180) scale(1);
+                background-size: 180rem;
+            }
+            75% {
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(-360deg) scale(1);
+                opacity: 0;
+                background-size: 150rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-circle" id="circle1-o" style="background-image: url('https://images.unsplash.com/photo-1622711768193-945e72bcf118?q=80&w=3326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="main-circle" id="circle1" style="background-image: url('https://images.unsplash.com/photo-1622711768193-945e72bcf118?q=80&w=3326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="inner-circle" id="circle1-i" style="background-image: url('https://images.unsplash.com/photo-1622711768193-945e72bcf118?q=80&w=3326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="outer-circle" id="circle2-o" style="background-image: url('https://images.unsplash.com/photo-1709589865176-7c6ede164354?q=80&w=1784&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="main-circle" id="circle2" style="background-image: url('https://images.unsplash.com/photo-1709589865176-7c6ede164354?q=80&w=1784&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="inner-circle" id="circle2-i" style="background-image: url('https://images.unsplash.com/photo-1709589865176-7c6ede164354?q=80&w=1784&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+</body>
+<script>
+    var clickCounter = 0;
+    document.addEventListener('click', function() {
+        if (clickCounter === 0) {
+            document.querySelector('#circle2').style.animation = 'rotate 1.5s ease-in alternate forwards';
+            document.querySelector('#circle2-i').style.animation = 'rotateI 1.5s ease-in alternate forwards';
+            document.querySelector('#circle2-o').style.animation = 'rotateO 1.5s ease-in alternate forwards';
+            document.querySelector('#circle1').style.animation = 'rotate 1.5s ease-in-out alternate-reverse forwards';
+            document.querySelector('#circle1-i').style.animation = 'rotateI 1.5s ease-in-out alternate-reverse forwards';
+            document.querySelector('#circle1-o').style.animation = 'rotateO 1.5s ease-in-out alternate-reverse forwards';
+            clickCounter++;
+        }
+        else if (clickCounter === 1) {
+
+
+        }
+    });
+</script>
