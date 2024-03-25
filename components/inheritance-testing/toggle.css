@@ -1,0 +1,56 @@
+body {
+    background-color: #202020;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 50%;
+}
+
+.btn {
+    background-color: #2b0f8f;
+    border-radius: 20px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.btn:hover {
+    background-color: #ffffff;
+    color: #b75500;
+}
+
+.btn btn-title {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.btn:hover btn-title {
+    color: #b75500;
+}
+
+/* Select next element after the button */
+.btn ~ .box {
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    transition: 2s ease;
+    clear: both;
+}
+
+.btn:hover ~ .box {
+    background-color: #ffffff;
+}
+
+
